@@ -13,54 +13,20 @@
         h1 {
             text-align: center;
         }
-        .tableFrame {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        .tableFrameUl {
-            width: 33.33%;
-        }
     </style>
 </head>
 <body>
-    <h1>99乘法表</h1>
-
-    <div class="tableFrame"></div>
+    <h1>Drum Kit</h1>
 
     <script>
-        var multiplicationTable = {
-            number: 9,
-            tableFrame: document.querySelector('.tableFrame'),
+        var drumKit = {
             start: function(){
-                var ulDom       = undefined;
-                var liDom       = undefined;
-                var ul          = undefined;
-                var ulTitle     = undefined;
-                var ulTitleText = undefined;
-
-                for (var index = 1; index <= this.number; index++) {
-                    ulDom = document.createElement('UL');
-                    this.tableFrame.appendChild(ulDom);
-
-                    ul = this.tableFrame.childNodes[index - 1];
-                    ul.classList.add('tableFrameUl');
-
-                    ulTitle = document.createElement('H2');
-                    ulTitleText = document.createTextNode(index);
-                    ulTitle.appendChild(ulTitleText);
-                    ul.appendChild(ulTitle);
-
-                    for (var ninetyNine = 1; ninetyNine <= this.number; ninetyNine++) {
-                        liDom = document.createElement('LI');
-                        liDom.innerHTML = index + ' x ' + ninetyNine + ' = ' + (index * ninetyNine);
-                        
-                        ul.appendChild(liDom);
-                    }
-                }
+                var x;
+                console.log(x);
             }
         }
 
-        multiplicationTable.start();
+        drumKit.start();
     </script>
 </body>
 </html>
