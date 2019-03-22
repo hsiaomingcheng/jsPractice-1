@@ -38,21 +38,21 @@
                 var ulTitle     = undefined;
                 var ulTitleText = undefined;
 
-                for (var index = 1; index <= this.number; index++) {
+                for (var index = 0; index < this.number; index++) {
                     ulDom = document.createElement('UL');
                     this.tableFrame.appendChild(ulDom);
 
-                    ul = this.tableFrame.childNodes[index - 1];
+                    ul = this.tableFrame.childNodes[index];
                     ul.classList.add('tableFrameUl');
 
                     ulTitle = document.createElement('H2');
-                    ulTitleText = document.createTextNode(index);
+                    ulTitleText = document.createTextNode(index + 1);
                     ulTitle.appendChild(ulTitleText);
                     ul.appendChild(ulTitle);
 
-                    for (var ninetyNine = 1; ninetyNine <= this.number; ninetyNine++) {
+                    for (var ninetyNine = 0; ninetyNine < this.number; ninetyNine++) {
                         liDom = document.createElement('LI');
-                        liDom.innerHTML = index + ' x ' + ninetyNine + ' = ' + (index * ninetyNine);
+                        liDom.innerHTML = (index + 1) + ' x ' + (ninetyNine + 1) + ' = ' + ( (index + 1) * (ninetyNine + 1) );
                         
                         ul.appendChild(liDom);
                     }
