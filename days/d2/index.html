@@ -9,20 +9,125 @@
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            position: relative;
+            min-height: 100vh;
         }
         h1 {
             text-align: center;
+        }
+        .printCode {
+            font-size: 30px;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .keyFrame {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+        }
+        .keyBtnBox {
+            cursor: pointer;
+            color: #fff;
+            background-color: rgba(0,0,0,0.5);
+            border: solid 5px #000;
+            border-radius: 15px;
+            width: 100px;
+            height: 100px;
+            margin: 0 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .keyBtnBox .btn {
+            font-size: 25px;
+        }
+        .keyBtnBox .text {
+            color: yellow;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <h1>Drum Kit</h1>
 
+    <h2 class="printCode">keyCode = <span></span></h2>
+
+    <div class="keyFrame">
+        <div class="keyBtnBox" data-code="65">
+            <p class="btn">A</p>
+            <p class="text">boom</p>
+        </div>
+        <div class="keyBtnBox" data-code="83">
+            <p class="btn">S</p>
+            <p class="text">clap</p>
+        </div>
+        <div class="keyBtnBox" data-code="68">
+            <p class="btn">D</p>
+            <p class="text">hihat</p>
+        </div>
+        <div class="keyBtnBox" data-code="70">
+            <p class="btn">F</p>
+            <p class="text">kick</p>
+        </div>
+        <div class="keyBtnBox" data-code="71">
+            <p class="btn">G</p>
+            <p class="text">openhat</p>
+        </div>
+        <div class="keyBtnBox" data-code="72">
+            <p class="btn">H</p>
+            <p class="text">ride</p>
+        </div>
+        <div class="keyBtnBox" data-code="74">
+            <p class="btn">J</p>
+            <p class="text">snare</p>
+        </div>
+        <div class="keyBtnBox" data-code="75">
+            <p class="btn">K</p>
+            <p class="text">tink</p>
+        </div>
+        <div class="keyBtnBox" data-code="76">
+            <p class="btn">L</p>
+            <p class="text">tom</p>
+        </div>
+    </div>
+
+    <audio data-code="65" src="../d2/sound/boom.wav"></audio>
+    <audio data-code="83" src="../d2/sound/clap.wav"></audio>
+    <audio data-code="68" src="../d2/sound/hihat.wav"></audio>
+    <audio data-code="70" src="../d2/sound/kick.wav"></audio>
+    <audio data-code="71" src="../d2/sound/openhat.wav"></audio>
+    <audio data-code="72" src="../d2/sound/ride.wav"></audio>
+    <audio data-code="74" src="../d2/sound/snare.wav"></audio>
+    <audio data-code="75" src="../d2/sound/tink.wav"></audio>
+    <audio data-code="76" src="../d2/sound/tom.wav"></audio>
+
     <script>
         var drumKit = {
             start: function(){
-                var x;
-                console.log(x);
+                // var keyBtn = document.getElementsByClassName('keyBtnBox');
+                var keyBtn = document.querySelectorAll('.keyBtnBox');
+
+                window.addEventListener('keydown', drumKit.keyDown);
+            },
+            keyDown: function(e){
+                var printCode = document.getElementsByClassName('printCode');
+                var audio = document.querySelector('audio[data-code="'+ e.keyCode +'"]');
+
+                if ( !audio ) { return };
+
+                //印出keyCode
+                printCode[0].children[0].innerHTML = e.keyCode;
+                //
+                audio.currentTime = 0;
+                audio.play();
             }
         }
 
