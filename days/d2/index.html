@@ -46,6 +46,9 @@
             align-items: center;
             justify-content: center;
         }
+        .keyBtnBox.bling {
+            border-color: chocolate;
+        }
         .keyBtnBox .btn {
             font-size: 25px;
         }
@@ -112,13 +115,14 @@
     <script>
         var drumKit = {
             start: function(){
-                // var keyBtn = document.getElementsByClassName('keyBtnBox');
                 var keyBtn = document.querySelectorAll('.keyBtnBox');
 
                 window.addEventListener('keydown', drumKit.keyDown);
+                window.addEventListener('keyup', drumKit.keyUp);
             },
             keyDown: function(e){
                 var printCode = document.getElementsByClassName('printCode');
+                var keyBtn = document.querySelector('.keyBtnBox[data-code="'+ e.keyCode +'"]');
                 var audio = document.querySelector('audio[data-code="'+ e.keyCode +'"]');
 
                 if ( !audio ) { return };
@@ -126,8 +130,16 @@
                 //印出keyCode
                 printCode[0].children[0].innerHTML = e.keyCode;
                 //
+                keyBtn.classList.add('bling');
                 audio.currentTime = 0;
                 audio.play();
+            },
+            keyUp: function(e){
+                var keyBtn = document.querySelector('.keyBtnBox[data-code="'+ e.keyCode +'"]');
+
+                if ( !keyBtn ) { return };
+
+                keyBtn.classList.remove('bling');
             }
         }
 
