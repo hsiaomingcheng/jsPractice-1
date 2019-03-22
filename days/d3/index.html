@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .clockFrame {
+            padding: 100px 0 0 0;
+        }
+        .clockCircle {
+            border: solid 20px #000;
+            border-radius: 50%;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .bar {
+            width: 10px;
+            height: calc(100% - 50px);
+            display: block;
+            position: absolute;
+            left: calc(50% - 5px);
+            top: 25px;
+        }
+        .bar span {
+            background-color: #000;
+            width: 100%;
+            height: 50%;
+            display: block;
+        }
+        .hourBar span {
+            height: calc(50% - 30px);
+            margin: 30px 0 0 0;
+        }
+        .secondBar span {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>時鐘 clock</h1>
+
+    <div class="clockFrame">
+        <div class="clockCircle">
+            <div class="bar hourBar"><span></span></div>
+            <div class="bar minuteBar"><span></span></div>
+            <div class="bar secondBar"><span></span></div>
+        </div>
+    </div>
+
+    <script>
+        var clock = {
+            start: function(){
+                var d       = new Date();
+                var dHour   = d.getHours();
+                var dMinute = d.getMinutes();
+                var dSecond = d.getSeconds();
+
+                //將時間轉換成角度
+                var rHour   = (dHour * (360 / 12)) + (((360 / 12) / 60) * dMinute);
+                var rMinute = dMinute * (360 / 60);
+                var rSecond = dSecond * (360 / 60);
+
+                //把角度指定給bar
+                var hourBar   = document.querySelector('.hourBar');
+                var minuteBar = document.querySelector('.minuteBar');
+                var secondBar = document.querySelector('.secondBar');
+                hourBar.style.transform   = 'rotate('+ rHour +'deg)';
+                minuteBar.style.transform = 'rotate('+ rMinute +'deg)';
+                secondBar.style.transform = 'rotate('+ rSecond +'deg)';
+            }
+        }
+
+        setInterval( function(){
+            clock.start();
+        }, 1000);
+
+        //先執行一次的原因是，setInterval進來時要先等1秒才會開始跑，這樣就會有一秒的時間是破功的
+        clock.start();
+    </script>
+</body>
+</html>
