@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        .imgFrame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .controlFrame {
+            display: flex;
+            justify-content: center;
+            padding: 50px 0;
+        }
+        .controlFrame .box {
+            margin: 0 20px;
+        }
+        .controlFrame .box label {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update CSS Variables with <span class="titleColor">JS</span></h1>
+
+    <div class="controlFrame">
+        <div class="box">
+            <label for="space">Spacing: </label>
+            <input type="range" id="space" name="space" min="10" max="100" value="0" data-sizing="px">
+        </div>
+        <div class="box">
+            <label for="blue">Blur: </label>
+            <input type="range" id="blue" name="blur" min="0" max="25" value="0" data-sizing="px">
+        </div>
+        <div class="box">
+            <label for="color">Base Color: </label>
+            <input type="color" id="color" name="color" value="#ff0000">
+        </div>
+    </div>
+
+    <div class="imgFrame">
+        <img src="../d4/img/111.jpg" alt="">
+    </div>
+
+    <script>
+        var jsFunc = {
+            start: function(){
+                var controlFrame = document.querySelector('.controlFrame'),
+                    box          = controlFrame.querySelectorAll('.box'),
+                    boxInput     = controlFrame.querySelectorAll('.box input'),
+                    img          = document.querySelector('.imgFrame img'),
+                    titleColor   = document.querySelector('.titleColor');
+
+                img.style.setProperty('padding','20px');
+                img.style.setProperty('background-color','#ff0000');
+                titleColor.style.color = '#ff0000';
+
+                boxInput.forEach(function(e){
+                    e.addEventListener('change', function(){
+                        switch (this.name) {
+                            case 'color':
+                                img.style.setProperty('background-color', this.value);
+                                titleColor.style.color = this.value;
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                    e.addEventListener('mousemove', function(){
+                        switch (this.name) {
+                            case 'space':
+                                img.style.setProperty('padding', this.value + 'px');
+                                break;
+                            case 'blur':
+                                img.style.setProperty('filter', 'blur(' + this.value + 'px)');
+                                break;
+                            default:
+                                break;
+                        }
+                    });
+                });
+            },
+            start2: function(){
+                /*若使用這個範例方法那CSS也必須要配合寫出*/
+                /*
+                    :root {
+                        --base: #ffc600;
+                        --spacing: 10px;
+                        --blur: 10px;
+                    }
+
+                    img {
+                        padding: var(--spacing);
+                        background: var(--base);
+                        filter: blur(var(--blur));
+                    }
+
+                    .hl {
+                        color: var(--base);
+                    }
+                */
+                const inputs = document.querySelectorAll('.controlFrame input');
+
+                function handleUpdate() {
+                const suffix = this.dataset.sizing || '';
+                    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+                }
+
+                inputs.forEach(input => input.addEventListener('change', handleUpdate));
+                inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+            }
+        }
+
+        jsFunc.start();
+    </script>
+</body>
+</html>
